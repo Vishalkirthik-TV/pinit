@@ -7,14 +7,16 @@ const DemoAnimation = () => {
         const sequence = async () => {
             while (true) {
                 setStep(0); // Reading
-                await new Promise(r => setTimeout(r, 1500));
-                setStep(1); // Hover Pin
-                await new Promise(r => setTimeout(r, 500));
-                setStep(2); // Click Pin
-                await new Promise(r => setTimeout(r, 1500));
-                setStep(3); // Scroll Away
+                await new Promise(r => setTimeout(r, 1000));
+                setStep(1); // Move to Extension Icon
+                await new Promise(r => setTimeout(r, 1000));
+                setStep(2); // Click Extension Icon (Pin)
+                await new Promise(r => setTimeout(r, 1000));
+                setStep(3); // Scroll Away (Floating button appears)
                 await new Promise(r => setTimeout(r, 2000));
-                setStep(4); // Click Extension
+                setStep(4); // Move to Floating Button
+                await new Promise(r => setTimeout(r, 1000));
+                setStep(5); // Click Floating Button (Recall)
                 await new Promise(r => setTimeout(r, 3000));
             }
         };
@@ -45,13 +47,13 @@ const DemoAnimation = () => {
 
                 {/* Pinit Extension Icon */}
                 <div
-                    id="demo-extension-icon"
                     style={{
-                        color: step === 4 ? '#8b5cf6' : '#94a3b8',
-                        cursor: 'pointer',
+                        color: step === 2 ? '#8b5cf6' : '#94a3b8',
                         transition: 'all 0.3s',
-                        transform: step === 4 ? 'scale(1.2)' : 'scale(1)',
-                        fontSize: '1.2rem'
+                        transform: step === 2 ? 'scale(1.2)' : 'scale(1)',
+                        fontSize: '1.2rem',
+                        position: 'relative',
+                        zIndex: 20
                     }}
                 >
                     📌
@@ -62,7 +64,7 @@ const DemoAnimation = () => {
             <div style={{
                 padding: '24px',
                 transition: 'transform 1s cubic-bezier(0.4, 0, 0.2, 1)',
-                transform: step === 3 ? 'translateY(-300px)' : step === 4 ? 'translateY(0)' : 'translateY(0)',
+                transform: step >= 3 && step < 5 ? 'translateY(-300px)' : 'translateY(0)',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '20px'
@@ -79,7 +81,6 @@ const DemoAnimation = () => {
                 <div style={{ display: 'flex', gap: '12px' }}>
                     <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#cbd5e1', flexShrink: 0 }}></div>
                     <div
-                        id="demo-target-section"
                         style={{
                             background: step >= 2 ? '#fdf2f8' : '#f1f5f9',
                             border: step >= 2 ? '1px solid #f472b6' : '1px solid transparent',
@@ -94,7 +95,7 @@ const DemoAnimation = () => {
                             "The key finding is that user retention correlates directly with interaction speed."
                         </div>
 
-                        {/* Pin Button (Hover state) */}
+                        {/* Pinned Badge */}
                         <div style={{
                             position: 'absolute',
                             top: '-10px',
@@ -123,6 +124,29 @@ const DemoAnimation = () => {
                 ))}
             </div>
 
+            {/* Floating Recall Button */}
+            <div style={{
+                position: 'absolute',
+                bottom: '30px',
+                right: '30px',
+                width: '50px',
+                height: '50px',
+                background: '#8b5cf6',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'white',
+                fontSize: '1.5rem',
+                boxShadow: '0 4px 12px rgba(139, 92, 246, 0.4)',
+                opacity: step >= 3 ? 1 : 0,
+                transform: step >= 3 ? (step === 5 ? 'scale(0.9)' : 'scale(1)') : 'scale(0) translateY(20px)',
+                transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                zIndex: 15
+            }}>
+                📌
+            </div>
+
             {/* Cursor Simulation */}
             <div style={{
                 position: 'absolute',
@@ -131,16 +155,17 @@ const DemoAnimation = () => {
                 width: '24px',
                 height: '24px',
                 pointerEvents: 'none',
-                transition: 'all 0.6s cubic-bezier(0.25, 1, 0.5, 1)',
+                transition: 'all 0.8s cubic-bezier(0.25, 1, 0.5, 1)',
                 transform: `translate(${step === 0 ? '50px, 300px' :
-                        step === 1 ? '70%, 180px' : // Hover Pin
-                            step === 2 ? '70%, 180px' : // Click Pin
-                                step === 3 ? '40%, 400px' : // Scrolling down
-                                    '92%, 25px' // Clicking Extension (Approximate top-right)
+                        step === 1 ? 'calc(100% - 30px), 15px' : // Move to Extension Icon (Top Right)
+                            step === 2 ? 'calc(100% - 30px), 15px' : // Click Extension Icon
+                                step === 3 ? '40%, 400px' : // Scrolling down (Cursor moves out of way)
+                                    step === 4 ? 'calc(100% - 45px), calc(100% - 45px)' : // Move to Floating Button (Bottom Right)
+                                        'calc(100% - 45px), calc(100% - 45px)' // Click Floating Button
                     })`,
-                zIndex: 20
+                zIndex: 30
             }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))' }}>
                     <path d="M5.65376 12.3673H5.46026L5.31717 12.4976L0.500002 16.8829L0.500002 1.19169L11.7841 12.3673H5.65376Z" fill="black" stroke="white" strokeWidth="1" />
                 </svg>
             </div>
@@ -160,13 +185,15 @@ const DemoAnimation = () => {
                 whiteSpace: 'nowrap',
                 boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
                 border: '1px solid #e2e8f0',
-                fontWeight: '500'
+                fontWeight: '500',
+                opacity: step >= 5 ? 0 : 1,
+                transition: 'opacity 0.3s'
             }}>
                 {step === 0 && "Reading..."}
-                {step === 1 && "Spotting key info"}
-                {step === 2 && "Pinning section"}
+                {step === 1 && "Click extension to pin"}
+                {step === 2 && "Pinned!"}
                 {step === 3 && "Scrolling away..."}
-                {step === 4 && "Instant recall!"}
+                {step === 4 && "Click to recall"}
             </div>
         </div>
     );
