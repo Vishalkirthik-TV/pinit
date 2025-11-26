@@ -88,6 +88,22 @@ p {
 }
 
 /* Utilities */
+.nav-link {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  padding: 0.5rem 1rem;
+}
+
+.nav-link:hover {
+  color: var(--primary);
+}
+
 .text-gradient {
   color: var(--primary);
   /* Fallback */
