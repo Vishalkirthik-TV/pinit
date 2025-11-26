@@ -2,21 +2,30 @@
   /* Solid Warm Theme Palette */
   --primary: #ff9a76;
   /* Warm Coral Orange */
-  --primary-hover: #ff855f;
-  --secondary: #ffb88c;
-  /* Soft Peach */
-  --accent: #FFC107;
-  /* Solid Amber/Yellow */
-  --background: #fff8f0;
-  /* Soft Cream */
-  --surface: #ffffff;
-  /* Pure White */
-  --text-main: #2d3436;
-  /* Dark Grey */
-  --text-muted: #636e72;
-  /* Medium Grey */
-  --border: #ffeaa7;
-  /* Light Yellow Border */
+  /* Light Mode (Default) */
+  --primary: #FFC107;
+  --primary-hover: #FFD54F;
+  --background: #FFFFFF;
+  --surface: #F8FAFC;
+  --text-main: #0F172A;
+  /* Dark Blue for text */
+  --text-muted: #64748B;
+  --border: #E2E8F0;
+  --shadow: rgba(15, 23, 42, 0.08);
+}
+
+[data-theme='dark'] {
+  /* Dark Mode */
+  --primary: #FFC107;
+  --primary-hover: #FFCA28;
+  --background: #0F172A;
+  /* Dark Blue Background */
+  --surface: #1E293B;
+  /* Slightly lighter Dark Blue */
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --border: #334155;
+  --shadow: rgba(0, 0, 0, 0.3);
 }
 
 body {
@@ -24,6 +33,7 @@ body {
   font-family: 'Inter', sans-serif;
   background-color: var(--background);
   color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
   -webkit-font-smoothing: antialiased;
   line-height: 1.6;
   font-size: 1.125rem;

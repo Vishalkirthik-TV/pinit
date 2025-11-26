@@ -1,11 +1,8 @@
 import React from 'react';
 import ProductShowcase from './ProductShowcase';
-import FloatingPins from './FloatingPins';
-
 const Hero = () => {
     return (
         <section className="container" style={{ padding: '6rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', position: 'relative' }}>
-            <FloatingPins />
             <h1 style={{ fontSize: '4rem', marginBottom: '1.5rem', fontWeight: '800', letterSpacing: '-0.02em' }}>
                 Focus on what matters. <br />
                 <span className="text-gradient">Pin the rest.</span>

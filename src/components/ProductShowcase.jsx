@@ -1,4 +1,5 @@
 import React from 'react';
+import pinitIcon from '../assets/pinit-icon.svg';
 
 const ProductShowcase = () => {
     return (
@@ -31,7 +32,9 @@ const ProductShowcase = () => {
                     border: '1px solid #e2e8f0'
                 }}>
                     <span>chatgpt.com/c/research-paper-analysis</span>
-                    <span style={{ color: 'var(--primary)', fontWeight: 'bold' }}>📌 Pinit</span>
+                    <span style={{ color: 'var(--primary)', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <img src={pinitIcon} alt="Pinit" style={{ height: '16px' }} /> Pinit
+                    </span>
                 </div>
             </div>
 
@@ -72,9 +75,12 @@ const ProductShowcase = () => {
                                 borderRadius: '12px',
                                 fontSize: '0.75rem',
                                 fontWeight: 'bold',
-                                boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '4px'
                             }}>
-                                📌 Pinned
+                                <img src={pinitIcon} alt="Pin" style={{ height: '12px', filter: 'brightness(0) invert(1)' }} /> Pinned
                             </div>
                             <p style={{ margin: 0, color: '#d35400', fontWeight: '500' }}>
                                 "The proposed architecture achieves 98% accuracy while reducing inference time by 40%, making it suitable for real-time edge applications."

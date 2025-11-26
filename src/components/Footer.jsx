@@ -1,9 +1,16 @@
 import React from 'react';
-import pinitIcon from '../assets/pinit-icon-clear.png';
+import pinitIcon from '../assets/pinit-icon.svg';
 
 const Footer = () => {
     return (
-        <footer style={{ borderTop: '1px solid var(--border)', padding: '5rem 0 2rem', marginTop: '6rem', background: 'var(--surface)' }}>
+        <footer style={{
+            borderTop: '1px solid var(--border)',
+            padding: '5rem 0 2rem',
+            marginTop: '6rem',
+            background: 'var(--surface)',
+            position: 'relative',
+            zIndex: 10
+        }}>
             <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '4rem', marginBottom: '4rem' }}>
                 {/* Brand Section */}
                 <div style={{ flex: '1 1 300px', textAlign: 'left' }}>

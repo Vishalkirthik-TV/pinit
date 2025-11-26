@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import pinitIcon from '../assets/pinit-icon.svg';
 
 const DemoAnimation = () => {
     const [step, setStep] = useState(0);
@@ -52,15 +53,24 @@ const DemoAnimation = () => {
                 {/* Pinit Extension Icon */}
                 <div
                     style={{
-                        color: (step === 6 || step === 7) ? 'var(--primary)' : '#94a3b8',
                         transition: 'all 0.2s',
                         transform: (step === 6) ? 'scale(1.3)' : (step === 7 ? 'scale(1.2)' : 'scale(1)'),
-                        fontSize: '1.2rem',
                         position: 'relative',
-                        zIndex: 20
+                        zIndex: 20,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
                     }}
                 >
-                    📌
+                    <img
+                        src={pinitIcon}
+                        alt="Pinit"
+                        style={{
+                            height: '24px',
+                            width: '24px',
+                            filter: (step === 6 || step === 7) ? 'none' : 'grayscale(100%) opacity(0.5)'
+                        }}
+                    />
                 </div>
             </div>
 
@@ -130,8 +140,6 @@ const DemoAnimation = () => {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        color: 'white',
-                        fontSize: '1rem',
                         boxShadow: '0 4px 12px rgba(255, 154, 118, 0.4)',
                         opacity: (step >= 1 && step <= 3) ? 1 : 0,
                         transform: (step >= 1 && step <= 3) ? 'translateY(-50%) scale(1)' : 'translateY(-50%) scale(0)',
@@ -139,7 +147,17 @@ const DemoAnimation = () => {
                         zIndex: 15,
                         cursor: 'pointer'
                     }}>
-                        <span style={{ transform: step === 2 ? 'scale(0.8)' : 'scale(1)', transition: 'transform 0.1s' }}>📌</span>
+                        <img
+                            src={pinitIcon}
+                            alt="Pin"
+                            style={{
+                                height: '18px',
+                                width: '18px',
+                                filter: 'brightness(0) invert(1)', // Make it white
+                                transform: step === 2 ? 'scale(0.8)' : 'scale(1)',
+                                transition: 'transform 0.1s'
+                            }}
+                        />
                     </div>
                 </div>
 

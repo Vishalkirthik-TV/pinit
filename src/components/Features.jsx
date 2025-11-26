@@ -1,5 +1,5 @@
 import React from 'react';
-
+import pinitIcon from '../assets/pinit-icon.svg';
 const FeatureCard = ({ title, description, icon }) => (
     <div className="glass-card" style={{ textAlign: 'left', padding: '2rem', background: 'var(--surface)', border: '1px solid var(--border)' }}>
         <div style={{ fontSize: '2.5rem', marginBottom: '1.5rem', background: 'var(--background)', width: 'fit-content', padding: '10px', borderRadius: '12px' }}>{icon}</div>
@@ -14,7 +14,7 @@ const Features = () => {
             <h2 style={{ fontSize: '3rem', marginBottom: '4rem', textAlign: 'center', fontWeight: '800', color: 'var(--text-main)' }}>Why professionals choose <span className="text-gradient">Pinit</span></h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem' }}>
                 <FeatureCard
-                    icon="📌"
+                    icon={<img src={pinitIcon} alt="Pinit" style={{ width: '1em', height: '1em' }} />}
                     title="Pin Key Insights"
                     description="Highlight and pin crucial paragraphs in research papers, documentation, or chat logs. Never lose track of important information."
                 />
