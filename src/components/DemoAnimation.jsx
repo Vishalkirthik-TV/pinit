@@ -6,18 +6,22 @@ const DemoAnimation = () => {
     useEffect(() => {
         const sequence = async () => {
             while (true) {
-                setStep(0); // Reading
-                await new Promise(r => setTimeout(r, 1000));
-                setStep(1); // Move to Extension Icon
-                await new Promise(r => setTimeout(r, 1000));
-                setStep(2); // Click Extension Icon (Pin)
-                await new Promise(r => setTimeout(r, 1000));
-                setStep(3); // Scroll Away (Floating button appears)
+                setStep(0); // Reading content
+                await new Promise(r => setTimeout(r, 1500));
+                setStep(1); // Move cursor to extension icon to pin
+                await new Promise(r => setTimeout(r, 700));
+                setStep(2); // Click extension icon (press)
+                await new Promise(r => setTimeout(r, 200));
+                setStep(3); // Release - content is now pinned
+                await new Promise(r => setTimeout(r, 1200));
+                setStep(4); // User scrolls down - cursor moves to reading position
+                await new Promise(r => setTimeout(r, 2500));
+                setStep(5); // Move cursor back to extension icon to recall
+                await new Promise(r => setTimeout(r, 700));
+                setStep(6); // Click extension icon again (press)
+                await new Promise(r => setTimeout(r, 200));
+                setStep(7); // Release - scroll back to pinned content
                 await new Promise(r => setTimeout(r, 2000));
-                setStep(4); // Move to Floating Button
-                await new Promise(r => setTimeout(r, 1000));
-                setStep(5); // Click Floating Button (Recall)
-                await new Promise(r => setTimeout(r, 3000));
             }
         };
         sequence();
@@ -48,9 +52,9 @@ const DemoAnimation = () => {
                 {/* Pinit Extension Icon */}
                 <div
                     style={{
-                        color: step === 2 ? '#8b5cf6' : '#94a3b8',
-                        transition: 'all 0.3s',
-                        transform: step === 2 ? 'scale(1.2)' : 'scale(1)',
+                        color: (step === 2 || step === 3 || step === 6 || step === 7) ? '#8b5cf6' : '#94a3b8',
+                        transition: 'all 0.2s',
+                        transform: (step === 2 || step === 6) ? 'scale(1.3)' : ((step === 3 || step === 7) ? 'scale(1.2)' : 'scale(1)'),
                         fontSize: '1.2rem',
                         position: 'relative',
                         zIndex: 20
@@ -64,7 +68,7 @@ const DemoAnimation = () => {
             <div style={{
                 padding: '24px',
                 transition: 'transform 1s cubic-bezier(0.4, 0, 0.2, 1)',
-                transform: step >= 3 && step < 5 ? 'translateY(-300px)' : 'translateY(0)',
+                transform: (step >= 4 && step < 7) ? 'translateY(-300px)' : 'translateY(0)',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '20px'
@@ -82,8 +86,8 @@ const DemoAnimation = () => {
                     <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#cbd5e1', flexShrink: 0 }}></div>
                     <div
                         style={{
-                            background: step >= 2 ? '#fdf2f8' : '#f1f5f9',
-                            border: step >= 2 ? '1px solid #f472b6' : '1px solid transparent',
+                            background: step >= 3 ? '#fdf2f8' : '#f1f5f9',
+                            border: step >= 3 ? '1px solid #f472b6' : '1px solid transparent',
                             padding: '16px',
                             borderRadius: '0 12px 12px 12px',
                             width: '90%',
@@ -91,7 +95,7 @@ const DemoAnimation = () => {
                             transition: 'all 0.3s'
                         }}
                     >
-                        <div style={{ color: step >= 2 ? '#be185d' : '#475569', fontSize: '0.95rem', lineHeight: '1.5', fontWeight: step >= 2 ? '500' : '400' }}>
+                        <div style={{ color: step >= 3 ? '#be185d' : '#475569', fontSize: '0.95rem', lineHeight: '1.5', fontWeight: step >= 3 ? '500' : '400' }}>
                             "The key finding is that user retention correlates directly with interaction speed."
                         </div>
 
@@ -105,8 +109,8 @@ const DemoAnimation = () => {
                             padding: '4px 8px',
                             borderRadius: '12px',
                             fontSize: '0.75rem',
-                            opacity: step >= 2 ? 1 : 0,
-                            transform: step >= 2 ? 'scale(1)' : 'scale(0)',
+                            opacity: step >= 3 ? 1 : 0,
+                            transform: step >= 3 ? 'scale(1)' : 'scale(0)',
                             transition: 'all 0.3s',
                             boxShadow: '0 2px 5px rgba(0,0,0,0.1)'
                         }}>
@@ -124,29 +128,6 @@ const DemoAnimation = () => {
                 ))}
             </div>
 
-            {/* Floating Recall Button */}
-            <div style={{
-                position: 'absolute',
-                bottom: '30px',
-                right: '30px',
-                width: '50px',
-                height: '50px',
-                background: '#8b5cf6',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'white',
-                fontSize: '1.5rem',
-                boxShadow: '0 4px 12px rgba(139, 92, 246, 0.4)',
-                opacity: step >= 3 ? 1 : 0,
-                transform: step >= 3 ? (step === 5 ? 'scale(0.9)' : 'scale(1)') : 'scale(0) translateY(20px)',
-                transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-                zIndex: 15
-            }}>
-                📌
-            </div>
-
             {/* Cursor Simulation */}
             <div style={{
                 position: 'absolute',
@@ -155,17 +136,30 @@ const DemoAnimation = () => {
                 width: '24px',
                 height: '24px',
                 pointerEvents: 'none',
-                transition: 'all 0.8s cubic-bezier(0.25, 1, 0.5, 1)',
-                transform: `translate(${step === 0 ? '50px, 300px' :
-                        step === 1 ? 'calc(100% - 30px), 15px' : // Move to Extension Icon (Top Right)
-                            step === 2 ? 'calc(100% - 30px), 15px' : // Click Extension Icon
-                                step === 3 ? '40%, 400px' : // Scrolling down (Cursor moves out of way)
-                                    step === 4 ? 'calc(100% - 45px), calc(100% - 45px)' : // Move to Floating Button (Bottom Right)
-                                        'calc(100% - 45px), calc(100% - 45px)' // Click Floating Button
+                transition: (step === 2 || step === 6) ? 'all 0.1s ease-out' : 'all 0.5s cubic-bezier(0.25, 1, 0.5, 1)',
+                transform: `translate(${step === 0 ? '150px, 180px' : // Reading position (near target content)
+                    step === 1 ? '540px, 22px' : // Move to Extension Icon (Top Right, within frame)
+                        step === 2 ? '542px, 24px' : // Click down - slight offset for press effect
+                            step === 3 ? '540px, 22px' : // Release
+                                step === 4 ? '200px, 350px' : // Reading position while scrolled down
+                                    step === 5 ? '540px, 22px' : // Move back to Extension Icon
+                                        step === 6 ? '542px, 24px' : // Click down
+                                            '540px, 22px' // Release
                     })`,
                 zIndex: 30
             }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))' }}>
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{
+                        filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+                        transform: (step === 2 || step === 6) ? 'scale(0.9)' : 'scale(1)',
+                        transition: 'transform 0.1s'
+                    }}
+                >
                     <path d="M5.65376 12.3673H5.46026L5.31717 12.4976L0.500002 16.8829L0.500002 1.19169L11.7841 12.3673H5.65376Z" fill="black" stroke="white" strokeWidth="1" />
                 </svg>
             </div>
@@ -186,17 +180,17 @@ const DemoAnimation = () => {
                 boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
                 border: '1px solid #e2e8f0',
                 fontWeight: '500',
-                opacity: step >= 5 ? 0 : 1,
                 transition: 'opacity 0.3s'
             }}>
-                {step === 0 && "Reading..."}
+                {step === 0 && "Reading important content..."}
                 {step === 1 && "Click extension to pin"}
-                {step === 2 && "Pinned!"}
-                {step === 3 && "Scrolling away..."}
-                {step === 4 && "Click to recall"}
+                {(step === 2 || step === 3) && "Section pinned!"}
+                {step === 4 && "Scrolling down..."}
+                {step === 5 && "Click extension to recall"}
+                {(step === 6 || step === 7) && "Jumping back to pinned section"}
             </div>
         </div>
     );
 };
 
-export default DemoAnimation;
+export default DemoAnimation; 
