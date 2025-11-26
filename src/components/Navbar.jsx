@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../assets/logo-pastel.png';
+import pinitIcon from '../assets/pinit-icon.png';
 
 const Navbar = () => {
   const scrollToSection = (id) => {
@@ -22,17 +22,17 @@ const Navbar = () => {
       position: 'sticky',
       top: 0,
       zIndex: 100,
-      background: 'rgba(253, 251, 247, 0.8)',
-      backdropFilter: 'blur(10px)'
+      background: 'var(--background)',
+      borderBottom: '1px solid var(--border)'
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-        <img src={logo} alt="Pinit Logo" style={{ height: '48px' }} />
-        <span style={{ fontSize: '1.5rem', fontWeight: '700', color: '#1a202c' }}>Pinit</span>
+        <img src={pinitIcon} alt="Pinit Logo" style={{ height: '40px' }} />
+        <span style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--text-main)' }}>Pinit</span>
       </div>
       <div>
-        <button onClick={() => scrollToSection('features')} style={{ background: 'transparent', border: 'none', color: '#4a5568', marginRight: '20px', fontWeight: '500', boxShadow: 'none' }}>Features</button>
-        <button onClick={() => scrollToSection('how-it-works')} style={{ background: 'transparent', border: 'none', color: '#4a5568', marginRight: '20px', fontWeight: '500', boxShadow: 'none' }}>How it Works</button>
-        <button style={{ background: '#8b5cf6', color: 'white', border: 'none', padding: '10px 24px', borderRadius: '20px', boxShadow: '0 4px 14px rgba(139, 92, 246, 0.3)' }}>Get Extension</button>
+        <button onClick={() => scrollToSection('features')} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', marginRight: '20px', fontWeight: '600', boxShadow: 'none', fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '1rem' }}>Features</button>
+        <button onClick={() => scrollToSection('how-it-works')} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', marginRight: '20px', fontWeight: '600', boxShadow: 'none', fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '1rem' }}>How it Works</button>
+        <button className="btn btn-primary" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Get Extension</button>
       </div>
     </nav>
   );

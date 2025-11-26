@@ -9,8 +9,8 @@ const ProductShowcase = () => {
             maxWidth: '800px',
             margin: '0 auto',
             boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)',
-            border: '1px solid rgba(255,255,255,0.8)',
-            background: 'rgba(255,255,255,0.9)'
+            border: '1px solid var(--border)',
+            background: 'var(--surface)'
         }}>
             {/* Browser Header */}
             <div style={{ background: '#f1f5f9', padding: '12px 20px', display: 'flex', gap: '8px', borderBottom: '1px solid #e2e8f0', alignItems: 'center' }}>
@@ -31,7 +31,7 @@ const ProductShowcase = () => {
                     border: '1px solid #e2e8f0'
                 }}>
                     <span>chatgpt.com/c/research-paper-analysis</span>
-                    <span style={{ color: '#8b5cf6', fontWeight: 'bold' }}>📌 Pinit</span>
+                    <span style={{ color: 'var(--primary)', fontWeight: 'bold' }}>📌 Pinit</span>
                 </div>
             </div>
 
@@ -55,8 +55,8 @@ const ProductShowcase = () => {
 
                         {/* Pinned Highlight */}
                         <div style={{
-                            background: '#fdf2f8',
-                            borderLeft: '4px solid #db2777',
+                            background: '#fff8f0',
+                            borderLeft: '4px solid var(--primary)',
                             padding: '16px',
                             borderRadius: '4px',
                             position: 'relative',
@@ -66,7 +66,7 @@ const ProductShowcase = () => {
                                 position: 'absolute',
                                 top: '-10px',
                                 right: '-10px',
-                                background: '#db2777',
+                                background: 'var(--primary)',
                                 color: 'white',
                                 padding: '4px 8px',
                                 borderRadius: '12px',
@@ -76,7 +76,7 @@ const ProductShowcase = () => {
                             }}>
                                 📌 Pinned
                             </div>
-                            <p style={{ margin: 0, color: '#be185d', fontWeight: '500' }}>
+                            <p style={{ margin: 0, color: '#d35400', fontWeight: '500' }}>
                                 "The proposed architecture achieves 98% accuracy while reducing inference time by 40%, making it suitable for real-time edge applications."
                             </p>
                         </div>

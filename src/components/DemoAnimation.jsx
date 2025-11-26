@@ -38,7 +38,7 @@ const DemoAnimation = () => {
             height: '450px',
             position: 'relative',
             background: '#fff',
-            border: '1px solid #e2e8f0',
+            border: '1px solid var(--border)',
             boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)'
         }}>
             {/* Browser Bar */}
@@ -52,7 +52,7 @@ const DemoAnimation = () => {
                 {/* Pinit Extension Icon */}
                 <div
                     style={{
-                        color: (step === 6 || step === 7) ? '#8b5cf6' : '#94a3b8',
+                        color: (step === 6 || step === 7) ? 'var(--primary)' : '#94a3b8',
                         transition: 'all 0.2s',
                         transform: (step === 6) ? 'scale(1.3)' : (step === 7 ? 'scale(1.2)' : 'scale(1)'),
                         fontSize: '1.2rem',
@@ -86,8 +86,8 @@ const DemoAnimation = () => {
                     <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#cbd5e1', flexShrink: 0 }}></div>
                     <div
                         style={{
-                            background: step >= 3 ? '#fdf2f8' : '#f1f5f9',
-                            border: step >= 3 ? '1px solid #f472b6' : '1px solid transparent',
+                            background: step >= 3 ? '#fff8f0' : '#f1f5f9',
+                            border: step >= 3 ? '1px solid var(--primary)' : '1px solid transparent',
                             padding: '16px',
                             borderRadius: '0 12px 12px 12px',
                             width: '90%',
@@ -95,7 +95,7 @@ const DemoAnimation = () => {
                             transition: 'all 0.3s'
                         }}
                     >
-                        <div style={{ color: step >= 3 ? '#be185d' : '#475569', fontSize: '0.95rem', lineHeight: '1.5', fontWeight: step >= 3 ? '500' : '400' }}>
+                        <div style={{ color: step >= 3 ? '#d35400' : '#475569', fontSize: '0.95rem', lineHeight: '1.5', fontWeight: step >= 3 ? '500' : '400' }}>
                             "The key finding is that user retention correlates directly with interaction speed."
                         </div>
 
@@ -104,7 +104,7 @@ const DemoAnimation = () => {
                             position: 'absolute',
                             top: '-10px',
                             right: '-10px',
-                            background: '#db2777',
+                            background: 'var(--primary)',
                             color: 'white',
                             padding: '4px 8px',
                             borderRadius: '12px',
@@ -123,17 +123,16 @@ const DemoAnimation = () => {
                         position: 'absolute',
                         right: '-5px',
                         top: '50%',
-                        transform: 'translateY(-50%)',
                         width: '32px',
                         height: '32px',
-                        background: '#8b5cf6',
+                        background: 'var(--primary)',
                         borderRadius: '50%',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         color: 'white',
                         fontSize: '1rem',
-                        boxShadow: '0 4px 12px rgba(139, 92, 246, 0.4)',
+                        boxShadow: '0 4px 12px rgba(255, 154, 118, 0.4)',
                         opacity: (step >= 1 && step <= 3) ? 1 : 0,
                         transform: (step >= 1 && step <= 3) ? 'translateY(-50%) scale(1)' : 'translateY(-50%) scale(0)',
                         transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
@@ -163,13 +162,13 @@ const DemoAnimation = () => {
                 pointerEvents: 'none',
                 transition: (step === 2 || step === 6) ? 'all 0.1s ease-out' : 'all 0.5s cubic-bezier(0.25, 1, 0.5, 1)',
                 transform: `translate(${step === 0 ? '150px, 180px' : // Reading position (near target content)
-                        step === 1 ? '570px, 195px' : // Move to Floating Pin Icon (right side of message)
-                            step === 2 ? '572px, 197px' : // Click down - slight offset for press effect
-                                step === 3 ? '570px, 195px' : // Release
-                                    step === 4 ? '200px, 350px' : // Reading position while scrolled down
-                                        step === 5 ? '540px, 22px' : // Move to Extension Icon (top right)
-                                            step === 6 ? '542px, 24px' : // Click down
-                                                '540px, 22px' // Release
+                    step === 1 ? '570px, 195px' : // Move to Floating Pin Icon (right side of message)
+                        step === 2 ? '572px, 197px' : // Click down - slight offset for press effect
+                            step === 3 ? '570px, 195px' : // Release
+                                step === 4 ? '200px, 350px' : // Reading position while scrolled down
+                                    step === 5 ? '540px, 22px' : // Move to Extension Icon (top right)
+                                        step === 6 ? '542px, 24px' : // Click down
+                                            '540px, 22px' // Release
                     })`,
                 zIndex: 30
             }}>
