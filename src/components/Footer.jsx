@@ -1,4 +1,5 @@
 import React from 'react';
+import pinitIcon from '../assets/pinit-icon-clear.png';
 
 const Footer = () => {
     return (
@@ -6,7 +7,10 @@ const Footer = () => {
             <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '4rem', marginBottom: '4rem' }}>
                 {/* Brand Section */}
                 <div style={{ flex: '1 1 300px', textAlign: 'left' }}>
-                    <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '1.75rem', marginBottom: '1rem', color: 'var(--text-main)', fontWeight: '800' }}>Pinit</h3>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1rem' }}>
+                        <img src={pinitIcon} alt="Pinit Logo" style={{ height: '32px' }} />
+                        <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '1.75rem', color: 'var(--text-main)', fontWeight: '800', margin: 0 }}>Pinit</h3>
+                    </div>
                     <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', maxWidth: '300px' }}>Enhance your research and reading workflow with instant context recall.</p>
                 </div>
 
