@@ -3,16 +3,7 @@ import pinitIcon from '../assets/pinit-icon.svg';
 
 const ProductShowcase = () => {
     return (
-        <div className="glass-card" style={{
-            padding: '0',
-            overflow: 'hidden',
-            textAlign: 'left',
-            maxWidth: '800px',
-            margin: '0 auto',
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)',
-            border: '1px solid var(--border)',
-            background: 'var(--surface)'
-        }}>
+        <div className="glass-card product-showcase">
             {/* Browser Header */}
             <div style={{ background: '#f1f5f9', padding: '12px 20px', display: 'flex', gap: '8px', borderBottom: '1px solid #e2e8f0', alignItems: 'center' }}>
                 <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ef4444' }}></div>
@@ -31,19 +22,19 @@ const ProductShowcase = () => {
                     justifyContent: 'space-between',
                     border: '1px solid #e2e8f0'
                 }}>
-                    <span>chatgpt.com/c/research-paper-analysis</span>
+                    <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>chatgpt.com/c/research-paper-analysis</span>
                     <span style={{ color: 'var(--primary)', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <img src={pinitIcon} alt="Pinit" style={{ height: '16px' }} /> Pinit
+                        <img src={pinitIcon} alt="Pinit" style={{ height: '16px' }} /> <span className="desktop-only">Pinit</span>
                     </span>
                 </div>
             </div>
 
             {/* Chat Interface Mockup */}
-            <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', gap: '24px', background: '#fff', minHeight: '400px' }}>
+            <div className="chat-interface">
 
                 {/* User Message */}
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    <div style={{ background: '#f3f4f6', padding: '12px 20px', borderRadius: '16px 16px 0 16px', maxWidth: '80%', color: '#1f2937' }}>
+                    <div className="chat-bubble">
                         Can you summarize the key findings of the 2024 study on attention mechanisms?
                     </div>
                 </div>
@@ -57,14 +48,7 @@ const ProductShowcase = () => {
                         </div>
 
                         {/* Pinned Highlight */}
-                        <div style={{
-                            background: '#fff8f0',
-                            borderLeft: '4px solid var(--primary)',
-                            padding: '16px',
-                            borderRadius: '4px',
-                            position: 'relative',
-                            marginBottom: '16px'
-                        }}>
+                        <div className="pinned-highlight">
                             <div style={{
                                 position: 'absolute',
                                 top: '-10px',

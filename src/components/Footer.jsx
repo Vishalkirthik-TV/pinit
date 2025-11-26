@@ -3,18 +3,11 @@ import pinitIcon from '../assets/pinit-icon.svg';
 
 const Footer = () => {
     return (
-        <footer style={{
-            borderTop: '1px solid var(--border)',
-            padding: '5rem 0 2rem',
-            marginTop: '6rem',
-            background: 'var(--surface)',
-            position: 'relative',
-            zIndex: 10
-        }}>
-            <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '4rem', marginBottom: '4rem' }}>
+        <footer className="footer-section">
+            <div className="container footer-container">
                 {/* Brand Section */}
-                <div style={{ flex: '1 1 300px', textAlign: 'left' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1rem' }}>
+                <div className="footer-brand">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1rem', justifyContent: 'inherit' }}>
                         <img src={pinitIcon} alt="Pinit Logo" style={{ height: '32px' }} />
                         <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '1.75rem', color: 'var(--text-main)', fontWeight: '800', margin: 0 }}>Pinit</h3>
                     </div>
@@ -22,7 +15,7 @@ const Footer = () => {
                 </div>
 
                 {/* Links Section */}
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4rem', flex: '2 1 auto', justifyContent: 'flex-end' }}>
+                <div className="footer-links">
                     <div style={{ textAlign: 'left' }}>
                         <h4 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '1.1rem', marginBottom: '1.2rem', color: 'var(--text-main)', fontWeight: '700' }}>Product</h4>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>

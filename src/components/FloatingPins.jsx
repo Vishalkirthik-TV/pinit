@@ -62,12 +62,8 @@ const FloatingPins = () => {
                         ease: "easeInOut",
                         delay: pin.delay
                     }}
-                    style={{
-                        position: 'absolute',
-                        width: '50px',
-                        height: '50px',
-                        opacity: 0.3
-                    }}
+
+                    className="floating-pin"
                 />
             ))}
         </div>

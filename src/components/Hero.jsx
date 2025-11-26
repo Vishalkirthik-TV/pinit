@@ -2,15 +2,15 @@ import React from 'react';
 import ProductShowcase from './ProductShowcase';
 const Hero = () => {
     return (
-        <section className="container" style={{ padding: '6rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', position: 'relative' }}>
-            <h1 style={{ fontSize: '4rem', marginBottom: '1.5rem', fontWeight: '800', letterSpacing: '-0.02em' }}>
+        <section className="container hero-section">
+            <h1 className="hero-title">
                 Focus on what matters. <br />
                 <span className="text-gradient">Pin the rest.</span>
             </h1>
-            <p style={{ fontSize: '1.25rem', color: 'var(--text-muted)', maxWidth: '650px', marginBottom: '3rem', lineHeight: '1.8' }}>
+            <p className="hero-subtitle">
                 The essential tool for researchers, students, and professionals. Instantly pin key sections in long documents and AI chats to stay organized and efficient.
             </p>
-            <div style={{ display: 'flex', gap: '1rem', marginBottom: '5rem' }}>
+            <div className="hero-buttons">
                 <button className="btn btn-primary">Add to Chrome - It's Free</button>
                 <button className="btn btn-secondary">Watch Demo</button>
             </div>

@@ -12,7 +12,7 @@ const Features = () => {
     return (
         <section className="container" style={{ padding: '6rem 2rem' }}>
             <h2 style={{ fontSize: '3rem', marginBottom: '4rem', textAlign: 'center', fontWeight: '800', color: 'var(--text-main)' }}>Why professionals choose <span className="text-gradient">Pinit</span></h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem' }}>
+            <div className="features-grid">
                 <FeatureCard
                     icon={<img src={pinitIcon} alt="Pinit" style={{ width: '1em', height: '1em' }} />}
                     title="Pin Key Insights"

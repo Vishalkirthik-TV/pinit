@@ -3,6 +3,7 @@ import pinitIcon from '../assets/pinit-icon.svg';
 
 const Navbar = () => {
   const [theme, setTheme] = React.useState(localStorage.getItem('theme') || 'light');
+  const [isOpen, setIsOpen] = React.useState(false);
 
   React.useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -52,7 +53,8 @@ const Navbar = () => {
         <img src={pinitIcon} alt="Pinit Logo" style={{ height: '36px' }} />
         <span style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--text-main)', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Pinit</span>
       </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+      {/* Desktop Menu */}
+      <div className="desktop-only" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
         <button onClick={() => scrollToSection('features')} className="nav-link">Features</button>
         <button onClick={() => scrollToSection('how-it-works')} className="nav-link">How it Works</button>
 
@@ -93,6 +95,63 @@ const Navbar = () => {
 
         <button className="btn btn-primary" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Get Extension</button>
       </div>
+
+      {/* Mobile Menu Toggle */}
+      <div className="mobile-only">
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-main)' }}
+        >
+          {isOpen ? (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          ) : (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          )}
+        </button>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      {isOpen && (
+        <div style={{
+          position: 'absolute',
+          top: '100%',
+          left: '0',
+          right: '0',
+          background: 'var(--surface)',
+          border: '1px solid var(--border)',
+          borderRadius: '24px',
+          marginTop: '1rem',
+          padding: '2rem',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1.5rem',
+          boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+          zIndex: 999
+        }}>
+          <button onClick={() => { scrollToSection('features'); setIsOpen(false); }} className="nav-link" style={{ textAlign: 'center', fontSize: '1.2rem' }}>Features</button>
+          <button onClick={() => { scrollToSection('how-it-works'); setIsOpen(false); }} className="nav-link" style={{ textAlign: 'center', fontSize: '1.2rem' }}>How it Works</button>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', alignItems: 'center' }}>
+            <span style={{ color: 'var(--text-muted)' }}>Theme:</span>
+            <button
+              onClick={toggleTheme}
+              style={{
+                background: 'var(--background)',
+                border: '1px solid var(--border)',
+                cursor: 'pointer',
+                padding: '8px 16px',
+                borderRadius: '12px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                color: 'var(--text-main)'
+              }}
+            >
+              {theme === 'light' ? 'Light Mode' : 'Dark Mode'}
+            </button>
+          </div>
+          <button className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>Get Extension</button>
+        </div>
+      )}
     </nav>
   );
 };
