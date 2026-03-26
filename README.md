@@ -2,7 +2,7 @@
 
 **Pinit** is a professional Chrome extension designed to solve the frustration of losing important messages in long, virtualized AI chat conversations. Whether you're using ChatGPT, Claude, or Grok, Pinit allows you to bookmark any message and jump back to it instantly—even if the message has been unmounted from the DOM.
 
-![Pinit Icon](Extension/pin.png)
+![Pinit Icon](Extension/icon.png)
 
 ## 🚀 The Challenge: Virtualized Lists
 Modern AI chat apps use **virtualization** to maintain performance. This means:
@@ -38,7 +38,7 @@ Pinit doesn't rely on fragile DOM selectors or unreliable scroll positions. Inst
 ## 📖 How to Use
 
 ### 1. Pinning a Message
-Simply hover over any message in ChatGPT, Claude, or Grok. A 📌 button will appear in the top-right corner of the message block. Click it to save the pin.
+Simply hover over any message in ChatGPT, Claude, or Grok. A custom branded pin icon button will appear in the top-right corner of the message block. Click it to save the pin.
 
 ### 2. Viewing Pins
 Click the Pinit icon in your browser's extension toolbar to see a list of all pins for the current website.
@@ -59,7 +59,7 @@ Built with a modular Manifest V3 architecture:
 *   **[matching-engine.js](Extension/modules/matching-engine.js)**: Weighted similarity scoring (threshold-based).
 *   **[mutation-tracker.js](Extension/modules/mutation-tracker.js)**: Real-time monitoring of DOM updates.
 *   **[restore-engine.js](Extension/modules/restore-engine.js)**: Progressive scroll search orchestrator.
-*   **[ui-injector.js](Extension/modules/ui-injector.js)**: Floating overlays and notification system.
+*   **[ui-injector.js](Extension/modules/ui-injector.js)**: Branded overlays and notification system.
 
 ---
 

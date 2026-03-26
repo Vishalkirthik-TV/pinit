@@ -6,21 +6,19 @@
 /* Delegate Pin Button */
 .pinit-delegate-btn {
     appearance: none;
-    background: #34495e;
-    color: white;
+    background-color: #34495e; /* Background instead of text */
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 6px;
-    padding: 4px 8px;
-    font-size: 14px;
+    border-radius: 8px;
+    padding: 4px;
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    transition: transform 0.2s, background 0.2s;
+    transition: transform 0.2s, background 0.2s, background-color 0.2s;
     opacity: 0.8;
 }
 
 .pinit-delegate-btn:hover {
     transform: scale(1.1);
-    background: #2c3e50;
+    background-color: #2c3e50;
     opacity: 1;
 }
 
@@ -41,7 +39,7 @@
     position: fixed;
     bottom: -60px;
     left: 20px;
-    padding: 12px 24px;
+    padding: 10px 20px;
     border-radius: 12px;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     font-weight: 500;
@@ -51,11 +49,14 @@
     transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
 }
 
-.pinit-toast::before {
-    content: "📌";
+/* New Icon for Toast */
+.pinit-toast-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
 }
 
 .pinit-toast-success {

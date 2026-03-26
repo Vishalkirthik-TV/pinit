@@ -31,6 +31,11 @@ body {
     gap: 12px;
 }
 
+.pinit-brand-icon {
+    width: 24px;
+    height: 24px;
+}
+
 .pinit-header h1 {
     font-size: 18px;
     margin: 0;

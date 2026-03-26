@@ -19,17 +19,9 @@ Pinit.UIInjector = (() => {
     const messageEl = e.target.closest(config.messageSelector);
 
     if (messageEl) {
-      // Avoid re-injecting if we're hovering inside the same message but not on the messageEl itself
       if (activePinButton && activePinButton.parentElement === messageEl) return;
-      
       console.log("Pinit: Detected message element under mouse", messageEl);
       showPinButton(messageEl);
-    } else {
-        // If we moved out of a message, remove the button after a delay
-        // (Optional: can leave it for better UX but let's be clean)
-        // Only remove if we're not hovering the button itself
-        if (e.target.closest(".pinit-delegate-btn")) return;
-        // removePinButton(); // Actually, it's better to keep it until another message is hovered
     }
   }
 
@@ -39,14 +31,21 @@ Pinit.UIInjector = (() => {
 
     const btn = document.createElement("button");
     btn.className = "pinit-delegate-btn";
-    btn.innerText = "📌";
+    
+    // Instead of emoji, use the project icon
+    const iconUrl = chrome.runtime.getURL("icon.png");
+    btn.style.backgroundImage = `url('${iconUrl}')`;
+    btn.style.backgroundSize = "contain";
+    btn.style.backgroundRepeat = "no-repeat";
+    btn.style.backgroundPosition = "center";
+    btn.style.width = "28px";
+    btn.style.height = "28px";
     btn.title = "Pin this message";
     
-    // Position it at top-right of the message element
     btn.style.position = "absolute";
     btn.style.top = "8px";
     btn.style.right = "8px";
-    btn.style.zIndex = "2147483647"; // Max z-index to stay on top
+    btn.style.zIndex = "2147483647";
 
     btn.addEventListener("click", (e) => {
       e.preventDefault();
@@ -61,7 +60,6 @@ Pinit.UIInjector = (() => {
       }
     });
 
-    // Ensure the message element is relative for absolute positioning of the button
     const computedStyle = window.getComputedStyle(element);
     if (computedStyle.position === "static") {
       element.style.position = "relative";
@@ -89,7 +87,15 @@ Pinit.UIInjector = (() => {
   function showToast(message, type = "success") {
     const toast = document.createElement("div");
     toast.className = `pinit-toast pinit-toast-${type}`;
-    toast.innerText = message;
+    
+    const iconImg = document.createElement("img");
+    iconImg.src = chrome.runtime.getURL("icon.png");
+    iconImg.className = "pinit-toast-icon";
+    toast.appendChild(iconImg);
+    
+    const textNode = document.createTextNode(message);
+    toast.appendChild(textNode);
+    
     document.body.appendChild(toast);
 
     setTimeout(() => {
