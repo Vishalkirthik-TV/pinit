@@ -1,31 +1,56 @@
+/**
+ * background.js
+ * Handles persistent storage and communication for Pinit.
+ */
+
+console.log("Pinit: Background service worker active.");
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.action === "saveScrollPosition") {
-    // Save multiple pins per domain as an array
-    chrome.storage.local.get([request.domain], (result) => {
-      let pins = result[request.domain] || [];
-      pins.push({ y: request.scrollY, time: Date.now() });
-      chrome.storage.local.set({ [request.domain]: pins }, () => {
-        console.log("Pinned scroll position saved for", request.domain);
+  // Logic: Use provided hostname if available (from popup), otherwise derive from sender tab (from content script)
+  const derivedHostname = sender.tab?.url ? new URL(sender.tab.url).hostname : null;
+  const hostname = request.hostname || derivedHostname || "global";
+  const storageKey = `pinit_pins_${hostname}`;
+  
+  console.log(`Pinit: Background received action: ${request.action} for host: ${hostname}`);
+
+  if (request.action === "savePin") {
+    chrome.storage.local.get([storageKey], (result) => {
+      const pins = result[storageKey] || [];
+      const updatedPins = [request.pin, ...pins].slice(0, 20);
+      chrome.storage.local.set({ [storageKey]: updatedPins }, () => {
+        updateBadge(updatedPins.length, sender.tab?.id);
+        sendResponse({ success: true, count: updatedPins.length });
       });
     });
-  } else if (request.action === "getScrollPositions") {
-    chrome.storage.local.get([request.domain], (result) => {
-      sendResponse({ pins: result[request.domain] || [] });
+    return true;
+  }
+
+  if (request.action === "getPins") {
+    chrome.storage.local.get([storageKey], (result) => {
+      sendResponse({ pins: result[storageKey] || [] });
     });
     return true;
-  } else if (request.action === "removePin") {
-    chrome.storage.local.get([request.domain], (result) => {
-      let pins = result[request.domain] || [];
-      pins.splice(request.index, 1);
-      chrome.storage.local.set({ [request.domain]: pins }, () => {
+  }
+
+  if (request.action === "removePin") {
+    chrome.storage.local.get([storageKey], (result) => {
+      const pins = result[storageKey] || [];
+      const updatedPins = pins.filter(p => p.id !== request.id);
+      chrome.storage.local.set({ [storageKey]: updatedPins }, () => {
+        updateBadge(updatedPins.length, sender.tab ? sender.tab.id : null);
         sendResponse({ success: true });
       });
     });
     return true;
-  } else if (request.action === "getPinColor") {
-    chrome.storage.local.get([`pinColor_${request.domain}`], (result) => {
-      sendResponse({ color: result[`pinColor_${request.domain}`] || '#f1c40f' });
-    });
-    return true;
   }
 });
+
+function updateBadge(count, tabId) {
+    if (!tabId) return;
+    if (count > 0) {
+        chrome.action.setBadgeText({ text: count.toString(), tabId: tabId });
+        chrome.action.setBadgeBackgroundColor({ color: "#3498db" });
+    } else {
+        chrome.action.setBadgeText({ text: "", tabId: tabId });
+    }
+}

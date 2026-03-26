@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-    body {
-      width: 150px;
-      font-family: sans-serif;
-      padding: 10px;
-    }
-    button {
-      width: 100%;
-      padding: 10px;
-      background-color: #3498db;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-    button:hover {
-      background-color: #2980b9;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <button id="pinBtn">📌 Pin This Spot</button>
-  <a href="#" id="settingsLink" style="display:block;margin-top:10px;text-align:center;font-size:0.9em;">⚙️ Settings</a>
-  <script src="popup.js"></script>
+    <div class="pinit-header">
+        <span style="font-size: 24px;">📌</span>
+        <h1>Pinit</h1>
+    </div>
+
+    <div id="pinList" class="pinit-container">
+        <!-- Pins will be injected here -->
+        <div class="pinit-empty">
+            <p>No messages pinned yet.</p>
+            <p style="font-size: 12px;">Hover over a message in ChatGPT, Claude, or Grok and click the 📌 button.</p>
+        </div>
+    </div>
+
+    <div class="pinit-footer">
+        Powered by Pinit Content-Based Matching
+    </div>
+
+    <script src="popup.js"></script>
 </body>
 </html>

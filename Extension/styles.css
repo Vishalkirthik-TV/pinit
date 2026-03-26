@@ -1,30 +1,71 @@
-@keyframes pop {
-  0% {
-    transform: translate(-50%, -50%) scale(0.3);
-    opacity: 0;
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.1);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 0;
-  }
+/**
+ * styles.css
+ * Styles for Pinit overlays, highlights, and notifications.
+ */
+
+/* Delegate Pin Button */
+.pinit-delegate-btn {
+    appearance: none;
+    background: #34495e;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: transform 0.2s, background 0.2s;
+    opacity: 0.8;
 }
 
-/* Pin button custom style for multiple pins */
-.pin-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
+.pinit-delegate-btn:hover {
+    transform: scale(1.1);
+    background: #2c3e50;
+    opacity: 1;
 }
-.remove-btn {
-  background: #e74c3c;
-  color: #fff;
-  border: none;
-  border-radius: 3px;
-  padding: 3px 8px;
-  cursor: pointer;
-  margin-left: 8px;
+
+/* Highlight Pulse Animation */
+@keyframes pinit-pulse {
+    0% { outline: 4px solid rgba(52, 152, 219, 0); outline-offset: 0px; box-shadow: 0 0 0 rgba(52, 152, 219, 0); }
+    50% { outline: 4px solid rgba(52, 152, 219, 0.8); outline-offset: 8px; box-shadow: 0 0 40px rgba(52, 152, 219, 0.5); }
+    100% { outline: 4px solid rgba(52, 152, 219, 0); outline-offset: 16px; box-shadow: 0 0 0 rgba(52, 152, 219, 0); }
+}
+
+.pinit-highlight-pulse {
+    animation: pinit-pulse 1s ease-in-out 3;
+    background-color: rgba(52, 152, 219, 0.1) !important;
+}
+
+/* Toast Notifications */
+.pinit-toast {
+    position: fixed;
+    bottom: -60px;
+    left: 20px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-weight: 500;
+    color: white;
+    z-index: 999999;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pinit-toast::before {
+    content: "📌";
+}
+
+.pinit-toast-success {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.pinit-toast-error {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+.pinit-toast-show {
+    bottom: 20px;
 }

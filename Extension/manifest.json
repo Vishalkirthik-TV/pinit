@@ -1,9 +1,16 @@
 {
   "manifest_version": 3,
-  "name": "PinIt",
-  "version": "1.0",
-  "description": "Pin a scroll position on the page and return to it anytime.",
-  "permissions": ["scripting", "activeTab", "storage"],
+  "name": "Pinit",
+  "version": "2.1",
+  "description": "Intelligently pin and return to AI chat messages, even in virtualized lists.",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": [
+    "https://chatgpt.com/*",
+    "https://chat.openai.com/*",
+    "https://claude.ai/*",
+    "https://grok.com/*",
+    "https://x.com/i/grok/*"
+  ],
   "action": {
     "default_popup": "popup.html",
     "default_icon": "pin.png"
@@ -13,8 +20,22 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"],
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://chat.openai.com/*",
+        "https://claude.ai/*",
+        "https://grok.com/*",
+        "https://x.com/i/grok/*"
+      ],
+      "js": [
+        "modules/message-detector.js",
+        "modules/fingerprint.js",
+        "modules/matching-engine.js",
+        "modules/mutation-tracker.js",
+        "modules/restore-engine.js",
+        "modules/ui-injector.js",
+        "content.js"
+      ],
       "css": ["styles.css"]
     }
   ],
@@ -22,6 +43,5 @@
     "16": "pin.png",
     "48": "pin.png",
     "128": "pin.png"
-  },
-  "options_page": "settings.html"
+  }
 }
