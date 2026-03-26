@@ -1,16 +1,67 @@
-# React + Vite
+# 📌 Pinit — Smart Message Pinning for AI Chat Apps
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Pinit** is a professional Chrome extension designed to solve the frustration of losing important messages in long, virtualized AI chat conversations. Whether you're using ChatGPT, Claude, or Grok, Pinit allows you to bookmark any message and jump back to it instantly—even if the message has been unmounted from the DOM.
 
-Currently, two official plugins are available:
+![Pinit Icon](Extension/pin.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 The Challenge: Virtualized Lists
+Modern AI chat apps use **virtualization** to maintain performance. This means:
+*   Only the currently visible messages exist in the DOM.
+*   Older messages are removed (unmounted) as you scroll away.
+*   Traditional browser bookmarks or static HTML IDs fail to find these messages later.
 
-## React Compiler
+## 💡 The Pinit Solution: Content-Based Re-identification
+Pinit doesn't rely on fragile DOM selectors or unreliable scroll positions. Instead, it uses a **Similo-inspired matching engine** to fingerprint messages based on:
+1.  **Content**: The actual text and meaning of the message.
+2.  **Context**: The surrounding neighbor messages.
+3.  **Structure**: The DOM tags, roles, and classes.
+4.  **Position**: Approximate relative scroll depth.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Key Features
+*   **Intelligent Restore**: Automatically scrolls and triggers the chat app's virtualization to "re-find" your pinned message.
+*   **Mutation Tracking**: Uses `MutationObserver` to watch for newly loaded messages during the restoration process.
+*   **Multi-Platform**: Deeply integrated with **ChatGPT**, **Claude (claude.ai)**, and **Grok**.
+*   **Premium UI**: Glassmorphism design, pulsing highlights, and smooth toast notifications.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Installation
+
+1.  **Clone/Download** this repository.
+2.  Open Chrome and navigate to `chrome://extensions`.
+3.  Enable **Developer mode** (toggle in the top-right corner).
+4.  Click **Load unpacked**.
+5.  Select the `Extension/` folder from this project.
+
+---
+
+## 📖 How to Use
+
+### 1. Pinning a Message
+Simply hover over any message in ChatGPT, Claude, or Grok. A 📌 button will appear in the top-right corner of the message block. Click it to save the pin.
+
+### 2. Viewing Pins
+Click the Pinit icon in your browser's extension toolbar to see a list of all pins for the current website.
+
+### 3. Restoring a Pin
+Click on any pin in the extension window. Pinit will:
+*   Identify if the message is already visible.
+*   If not, it will initiate a **Progressive Scroll Search**, scrolling upwards and scanning newly loaded content until a match is found.
+*   Once found, the message will be scrolled into view and highlighted with a pulsing blue glow.
+
+---
+
+## 🧠 Technical Architecture
+
+Built with a modular Manifest V3 architecture:
+*   **[message-detector.js](Extension/modules/message-detector.js)**: Site-specific heuristics for AI platforms.
+*   **[fingerprint.js](Extension/modules/fingerprint.js)**: Advanced multi-attribute fingerprinting.
+*   **[matching-engine.js](Extension/modules/matching-engine.js)**: Weighted similarity scoring (threshold-based).
+*   **[mutation-tracker.js](Extension/modules/mutation-tracker.js)**: Real-time monitoring of DOM updates.
+*   **[restore-engine.js](Extension/modules/restore-engine.js)**: Progressive scroll search orchestrator.
+*   **[ui-injector.js](Extension/modules/ui-injector.js)**: Floating overlays and notification system.
+
+---
+
+## 📝 License
+MIT License. Built for advanced agentic coding demonstration.
