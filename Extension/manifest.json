@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Pinit",
-  "version": "2.2",
+  "version": "2.4",
   "description": "Intelligently pin and return to AI chat messages, even in virtualized lists.",
   "permissions": ["storage", "activeTab", "scripting"],
   "host_permissions": [
@@ -13,7 +13,7 @@
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "icon.png"
+    "default_icon": "pinit-icon-clear.png"
   },
   "background": {
     "service_worker": "background.js"
@@ -40,8 +40,14 @@
     }
   ],
   "icons": {
-    "16": "icon.png",
-    "48": "icon.png",
-    "128": "icon.png"
-  }
+    "16": "pinit-icon-clear.png",
+    "48": "pinit-icon-clear.png",
+    "128": "pinit-icon-clear.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["pinit-icon-clear.png"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }

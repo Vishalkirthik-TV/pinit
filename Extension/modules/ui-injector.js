@@ -11,7 +11,6 @@ Pinit.UIInjector = (() => {
   function init() {
     console.log("Pinit: Initializing UIInjector...");
     document.addEventListener("mouseover", handleMouseOver);
-    console.log("Pinit: Mouseover listener added.");
   }
 
   function handleMouseOver(e) {
@@ -20,7 +19,6 @@ Pinit.UIInjector = (() => {
 
     if (messageEl) {
       if (activePinButton && activePinButton.parentElement === messageEl) return;
-      console.log("Pinit: Detected message element under mouse", messageEl);
       showPinButton(messageEl);
     }
   }
@@ -32,14 +30,14 @@ Pinit.UIInjector = (() => {
     const btn = document.createElement("button");
     btn.className = "pinit-delegate-btn";
     
-    // Instead of emoji, use the project icon
-    const iconUrl = chrome.runtime.getURL("icon.png");
+    // Updated icon filename
+    const iconUrl = chrome.runtime.getURL("pinit-icon-clear.png");
     btn.style.backgroundImage = `url('${iconUrl}')`;
-    btn.style.backgroundSize = "contain";
+    btn.style.backgroundSize = "80%";
     btn.style.backgroundRepeat = "no-repeat";
     btn.style.backgroundPosition = "center";
-    btn.style.width = "28px";
-    btn.style.height = "28px";
+    btn.style.width = "32px";
+    btn.style.height = "32px";
     btn.title = "Pin this message";
     
     btn.style.position = "absolute";
@@ -50,11 +48,9 @@ Pinit.UIInjector = (() => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
       e.stopPropagation();
-      console.log("Pinit: Pin button clicked for", element);
       const pin = Pinit.Fingerprint.capture(element);
       if (pin) {
         chrome.runtime.sendMessage({ action: "savePin", pin: pin }, (response) => {
-            console.log("Pinit: Pin saved response", response);
             showToast("Message Pinned!");
         });
       }
@@ -67,7 +63,6 @@ Pinit.UIInjector = (() => {
     
     element.appendChild(btn);
     activePinButton = btn;
-    console.log("Pinit: Pin button injected.");
   }
 
   function removePinButton() {
@@ -89,7 +84,7 @@ Pinit.UIInjector = (() => {
     toast.className = `pinit-toast pinit-toast-${type}`;
     
     const iconImg = document.createElement("img");
-    iconImg.src = chrome.runtime.getURL("icon.png");
+    iconImg.src = chrome.runtime.getURL("pinit-icon-clear.png");
     iconImg.className = "pinit-toast-icon";
     toast.appendChild(iconImg);
     

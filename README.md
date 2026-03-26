@@ -1,67 +1,69 @@
-# 📌 Pinit — Smart Message Pinning for AI Chat Apps
+<p align="center">
+  <img src="Extension/pinit-icon-clear.png" width="96" height="96" alt="Pinit Logo">
+</p>
 
-**Pinit** is a professional Chrome extension designed to solve the frustration of losing important messages in long, virtualized AI chat conversations. Whether you're using ChatGPT, Claude, or Grok, Pinit allows you to bookmark any message and jump back to it instantly—even if the message has been unmounted from the DOM.
+<h1 align="center">Pinit</h1>
 
-![Pinit Icon](Extension/icon.png)
+<p align="center">
+  <b>The Intelligent Message Pinning System for AI Chat Apps</b><br>
+  <i>Never lose a critical insight in a 500-message conversation again.</i>
+</p>
 
-## 🚀 The Challenge: Virtualized Lists
-Modern AI chat apps use **virtualization** to maintain performance. This means:
-*   Only the currently visible messages exist in the DOM.
-*   Older messages are removed (unmounted) as you scroll away.
-*   Traditional browser bookmarks or static HTML IDs fail to find these messages later.
-
-## 💡 The Pinit Solution: Content-Based Re-identification
-Pinit doesn't rely on fragile DOM selectors or unreliable scroll positions. Instead, it uses a **Similo-inspired matching engine** to fingerprint messages based on:
-1.  **Content**: The actual text and meaning of the message.
-2.  **Context**: The surrounding neighbor messages.
-3.  **Structure**: The DOM tags, roles, and classes.
-4.  **Position**: Approximate relative scroll depth.
-
-### Key Features
-*   **Intelligent Restore**: Automatically scrolls and triggers the chat app's virtualization to "re-find" your pinned message.
-*   **Mutation Tracking**: Uses `MutationObserver` to watch for newly loaded messages during the restoration process.
-*   **Multi-Platform**: Deeply integrated with **ChatGPT**, **Claude (claude.ai)**, and **Grok**.
-*   **Premium UI**: Glassmorphism design, pulsing highlights, and smooth toast notifications.
+<p align="center">
+  <img src="https://img.shields.io/badge/Platform-Chrome-blue.svg?style=flat-square" alt="Platform: Chrome">
+  <img src="https://img.shields.io/badge/Supports-ChatGPT%20|%20Claude%20|%20Grok-orange.svg?style=flat-square" alt="Supports: ChatGPT, Claude, Grok">
+  <img src="https://img.shields.io/badge/Engine-Similo--Inspired-green.svg?style=flat-square" alt="Engine: Similo-Inspired">
+</p>
 
 ---
+
+## 🌟 Overview
+
+**Pinit** is a premium browser extension engineered to solve a fundamental flaw in modern AI chat interfaces: **DOM Virtualization**. 
+
+Popular chat apps like ChatGPT and Claude "unmount" older messages to save memory. This means traditional scroll-position saving or browser bookmarks fail the moment you refresh the page or scroll too far away. Pinit overcomes this using a sophisticated **Content-Based Re-identification System**.
+
+## ✨ Key Features
+
+-   **🎯 Smart Fingerprinting**: Captures the unique "DNA" of a message—not just its text, but its neighboring context, DOM structure, and relative depth.
+-   **🔄 Progressive Auto-Restore**: When you click a pin, Pinit orchestrates a "seek and find" mission, automatically scrolling and triggering virtualization until the exact message is re-found.
+-   **🛡️ Robust matching**: Based on the **VON Similo** research paper, our engine uses weighted similarity scoring (0.40 threshold) to re-identify messages even if the UI styling shifts.
+-   **💎 Premium Experience**: Designed with a glassmorphism aesthetic, featuring pulsing visual highlights and sleek toast notifications.
 
 ## 🛠️ Installation
 
-1.  **Clone/Download** this repository.
-2.  Open Chrome and navigate to `chrome://extensions`.
-3.  Enable **Developer mode** (toggle in the top-right corner).
-4.  Click **Load unpacked**.
-5.  Select the `Extension/` folder from this project.
+1.  **Download** or Clone this repository.
+2.  In Chrome, navigate to `chrome://extensions`.
+3.  Enable **Developer mode** in the top-right corner.
+4.  Click **Load unpacked** and select the `Extension/` folder.
+5.  Pin the **Pinit icon** to your browser toolbar for instant access.
 
----
+## 📖 How it Works
 
-## 📖 How to Use
+### 1. The Pin
+Hover over any message block in **ChatGPT**, **Claude**, or **Grok**. A custom branded Pinit button will appear in the top-right corner. One click secures the message's unique fingerprint.
 
-### 1. Pinning a Message
-Simply hover over any message in ChatGPT, Claude, or Grok. A custom branded pin icon button will appear in the top-right corner of the message block. Click it to save the pin.
+### 2. The Library
+Access your saved insights via the extension popup. Each pin shows a preview, timestamp, and site context.
 
-### 2. Viewing Pins
-Click the Pinit icon in your browser's extension toolbar to see a list of all pins for the current website.
-
-### 3. Restoring a Pin
-Click on any pin in the extension window. Pinit will:
-*   Identify if the message is already visible.
-*   If not, it will initiate a **Progressive Scroll Search**, scrolling upwards and scanning newly loaded content until a match is found.
-*   Once found, the message will be scrolled into view and highlighted with a pulsing blue glow.
-
----
+### 3. The Restore
+Click a pin to fly back to that exact moment in the conversation. If the message is currently unmounted from the DOM, Pinit initiates a **Progressive Scroll Search**—monitoring live DOM mutations until the target reappears and is highlighted for you.
 
 ## 🧠 Technical Architecture
 
-Built with a modular Manifest V3 architecture:
-*   **[message-detector.js](Extension/modules/message-detector.js)**: Site-specific heuristics for AI platforms.
-*   **[fingerprint.js](Extension/modules/fingerprint.js)**: Advanced multi-attribute fingerprinting.
-*   **[matching-engine.js](Extension/modules/matching-engine.js)**: Weighted similarity scoring (threshold-based).
-*   **[mutation-tracker.js](Extension/modules/mutation-tracker.js)**: Real-time monitoring of DOM updates.
-*   **[restore-engine.js](Extension/modules/restore-engine.js)**: Progressive scroll search orchestrator.
-*   **[ui-injector.js](Extension/modules/ui-injector.js)**: Branded overlays and notification system.
+Pinit is built on a modular V3 architecture for maximum performance and security:
+
+| Module | Responsibility |
+| :--- | :--- |
+| **`message-detector.js`** | Site-specific heuristics for AI platforms. |
+| **`fingerprint.js`** | Multi-attribute hashing and context capture. |
+| **`matching-engine.js`** | Similo-inspired weighted similarity scoring. |
+| **`mutation-tracker.js`** | `MutationObserver` logic for virtualized list tracking. |
+| **`restore-engine.js`** | Progressive scroll and seeking algorithms. |
+| **`ui-injector.js`** | Branded overlays and pulsing highlight system. |
 
 ---
 
-## 📝 License
-MIT License. Built for advanced agentic coding demonstration.
+<p align="center">
+  Built for the future of Agentic AI interactions.
+</p>

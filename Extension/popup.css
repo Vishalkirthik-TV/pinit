@@ -32,12 +32,13 @@ body {
 }
 
 .pinit-brand-icon {
-    width: 24px;
-    height: 24px;
+    width: 32px; /* Increased header icon size */
+    height: 32px;
+    object-fit: contain;
 }
 
 .pinit-header h1 {
-    font-size: 18px;
+    font-size: 20px; /* Slightly larger title */
     margin: 0;
     font-weight: 700;
     letter-spacing: -0.5px;
