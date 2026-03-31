@@ -1,27 +1,45 @@
 {
   "manifest_version": 3,
-  "name": "PinIt",
-  "version": "1.0",
-  "description": "Pin a scroll position on the page and return to it anytime.",
-  "permissions": ["scripting", "activeTab", "storage"],
+  "name": "Pinit",
+  "version": "2.4",
+  "description": "Intelligently pin and return to AI chat messages, even in virtualized lists.",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": [
+    "<all_urls>"
+  ],
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "pin.png"
+    "default_icon": "pinit-icon-clear.png"
   },
   "background": {
     "service_worker": "background.js"
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "modules/message-detector.js",
+        "modules/fingerprint.js",
+        "modules/matching-engine.js",
+        "modules/mutation-tracker.js",
+        "modules/restore-engine.js",
+        "modules/ui-injector.js",
+        "content.js"
+      ],
       "css": ["styles.css"]
     }
   ],
   "icons": {
-    "16": "pin.png",
-    "48": "pin.png",
-    "128": "pin.png"
+    "16": "pinit-icon-clear.png",
+    "48": "pinit-icon-clear.png",
+    "128": "pinit-icon-clear.png"
   },
-  "options_page": "settings.html"
+  "web_accessible_resources": [
+    {
+      "resources": ["pinit-icon-clear.png"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }

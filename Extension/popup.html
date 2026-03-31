@@ -1,29 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-    body {
-      width: 150px;
-      font-family: sans-serif;
-      padding: 10px;
-    }
-    button {
-      width: 100%;
-      padding: 10px;
-      background-color: #3498db;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-    button:hover {
-      background-color: #2980b9;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <button id="pinBtn">📌 Pin This Spot</button>
-  <a href="#" id="settingsLink" style="display:block;margin-top:10px;text-align:center;font-size:0.9em;">⚙️ Settings</a>
-  <script src="popup.js"></script>
+    <div class="pinit-header">
+        <img src="pinit-icon-clear.png" alt="Pinit" class="pinit-brand-icon">
+        <h1>Pinit</h1>
+    </div>
+
+    <div style="padding: 0 16px;">
+        <button id="btnPinPage" class="pinit-btn-primary" style="width: 100%; margin-bottom: 8px; padding: 10px; border-radius: 6px; border: none; background: #3498db; color: white; cursor: pointer; font-weight: bold; transition: opacity 0.2s;" onmouseover="this.style.opacity=0.9" onmouseout="this.style.opacity=1">
+            📌 Pin Current Page View
+        </button>
+    </div>
+
+    <div id="pinList" class="pinit-container">
+        <!-- Pins will be injected here -->
+        <div class="pinit-empty">
+            <p>No messages pinned yet.</p>
+            <p style="font-size: 11px; margin-top: 8px;">Hover over a message in ChatGPT, Claude, or Grok and click the button.</p>
+        </div>
+    </div>
+
+    <div class="pinit-footer">
+        Powered by Pinit Content-Based Matching
+    </div>
+
+    <script src="popup.js"></script>
 </body>
 </html>

@@ -1,0 +1,144 @@
+/**
+ * popup.css
+ * Premium styling for the Pinit action popup.
+ */
+
+:root {
+    --primary: #3498db;
+    --primary-dim: rgba(52, 152, 219, 0.1);
+    --bg: #1a1a1a;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --text: #ffffff;
+    --text-dim: #a0a0a0;
+    --border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+    width: 320px;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+}
+
+.pinit-header {
+    padding: 16px;
+    background: linear-gradient(135deg, #2c3e50, #000);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pinit-brand-icon {
+    width: 32px; /* Increased header icon size */
+    height: 32px;
+    object-fit: contain;
+}
+
+.pinit-header h1 {
+    font-size: 20px; /* Slightly larger title */
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.pinit-container {
+    padding: 12px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.pinit-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.pinit-container::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 10px;
+}
+
+.pinit-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-dim);
+}
+
+.pinit-empty p {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.pin-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.pin-card:hover {
+    border-color: var(--primary);
+    background: rgba(52, 152, 219, 0.05);
+    transform: translateY(-2px);
+}
+
+.pin-text {
+    font-size: 13px;
+    line-height: 1.4;
+    color: #eee;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.pin-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: var(--text-dim);
+}
+
+.pin-time {
+    background: var(--border);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.pin-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.btn-icon:hover {
+    opacity: 1;
+}
+
+.btn-delete {
+    color: #e74c3c;
+}
+
+.pinit-footer {
+    padding: 12px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-dim);
+}
