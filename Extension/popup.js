@@ -44,20 +44,24 @@ document.addEventListener("DOMContentLoaded", async () => {
         pinList.innerHTML = "";
         
         pins.forEach(pin => {
-            const card = document.createElement("div");
-            card.className = "pin-card";
+            const item = document.createElement("div");
+            item.className = "pin-list-item";
             
-            card.innerHTML = `
+            const timeStr = new Date(pin.position.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            const platformLabel = (pin.platform || "CHAT").toUpperCase();
+
+            item.innerHTML = `
                 <div class="pin-text">${escapeHtml(pin.textPreview)}</div>
                 <div class="pin-meta">
-                    <span class="pin-time">${new Date(pin.position.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
-                    <div class="pin-actions">
-                        <button class="btn-icon btn-delete" data-id="${pin.id}">✖</button>
-                    </div>
+                    <span class="status-tag status-tag-accent">${platformLabel}</span>
+                    <span class="pin-time">${timeStr}</span>
+                </div>
+                <div class="pin-actions">
+                    <button class="btn-delete" data-id="${pin.id}" title="Remove Pin">✖</button>
                 </div>
             `;
 
-            card.addEventListener("click", (e) => {
+            item.addEventListener("click", (e) => {
                 if (e.target.classList.contains("btn-delete")) {
                     removePin(pin.id);
                     e.stopPropagation();
@@ -88,7 +92,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 }
             });
 
-            pinList.appendChild(card);
+            pinList.appendChild(item);
         });
     }
 
@@ -101,8 +105,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     function renderEmptyState() {
         pinList.innerHTML = `
             <div class="pinit-empty">
-                <p>No pins yet on <b>${hostname}</b>.</p>
-                <p style="font-size: 11px; margin-top: 8px;">Click "Pin Current Page View" above, or hover over a chat message in supported AI apps to pin it.</p>
+                <p>No active pins on this source.</p>
+                <p style="opacity: 0.4; font-size: 11px;">Search or hover messages to capture clinical context.</p>
             </div>
         `;
     }

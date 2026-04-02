@@ -2,6 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
@@ -10,9 +14,10 @@
         <h1>Pinit</h1>
     </div>
 
-    <div style="padding: 0 16px;">
+    <div class="action-bar">
         <button id="btnPinPage" class="pinit-btn-primary">
-            📌 Pin Current Page View
+            <span><span class="btn-icon-pin">📍</span> Pin Current View</span>
+            <span class="cmd-shortcut">Enter</span>
         </button>
     </div>
 

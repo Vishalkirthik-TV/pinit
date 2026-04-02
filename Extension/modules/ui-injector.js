@@ -29,21 +29,15 @@ Pinit.UIInjector = (() => {
 
     const btn = document.createElement("button");
     btn.className = "pinit-delegate-btn";
-    
-    // Updated icon filename
-    const iconUrl = chrome.runtime.getURL("pinit-icon-clear.png");
-    btn.style.backgroundImage = `url('${iconUrl}')`;
-    btn.style.backgroundSize = "80%";
-    btn.style.backgroundRepeat = "no-repeat";
-    btn.style.backgroundPosition = "center";
-    btn.style.width = "32px";
-    btn.style.height = "32px";
     btn.title = "Pin this message";
     
-    btn.style.position = "absolute";
-    btn.style.top = "8px";
-    btn.style.right = "8px";
-    btn.style.zIndex = "2147483647";
+    // Icon is set via CSS mask or internal img to allow better styling
+    const iconImg = document.createElement("img");
+    iconImg.src = chrome.runtime.getURL("pinit-icon-clear.png");
+    iconImg.style.width = "20px";
+    iconImg.style.height = "20px";
+    iconImg.style.pointerEvents = "none";
+    btn.appendChild(iconImg);
 
     btn.addEventListener("click", (e) => {
       e.preventDefault();
