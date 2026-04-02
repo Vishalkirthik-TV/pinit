@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Extension/pinit-icon-clear.png" width="96" height="96" alt="Pinit Logo">
+  <img src="extension/pinit-icon-clear.png" width="96" height="96" alt="Pinit Logo">
 </p>
 
 <h1 align="center">Pinit</h1>
