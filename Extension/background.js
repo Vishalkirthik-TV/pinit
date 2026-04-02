@@ -54,3 +54,14 @@ function updateBadge(count, tabId) {
         chrome.action.setBadgeText({ text: "", tabId: tabId });
     }
 }
+
+// Global Command Listener
+chrome.commands.onCommand.addListener((command) => {
+  if (command === "capture-page") {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (tabs[0] && tabs[0].id) {
+        chrome.tabs.sendMessage(tabs[0].id, { action: "capturePage" });
+      }
+    });
+  }
+});

@@ -41,5 +41,14 @@
       "resources": ["pinit-icon-clear.png"],
       "matches": ["<all_urls>"]
     }
-  ]
+  ],
+  "commands": {
+    "capture-page": {
+      "suggested_key": {
+        "default": "Alt+Shift+P",
+        "mac": "Alt+Shift+P"
+      },
+      "description": "Pin the current page view"
+    }
+  }
 }

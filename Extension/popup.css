@@ -7,9 +7,11 @@
 :root {
     --bg: hsl(240, 10%, 4%);
     --bg-secondary: hsl(240, 6%, 8%);
-    --border: hsla(0, 0%, 100%, 0.08); /* Minimal 1px border */
+    --border: hsla(0, 0%, 100%, 0.08);
+    /* Minimal 1px border */
     --border-hover: hsla(0, 0%, 100%, 0.16);
-    --accent: hsl(212, 100%, 50%); /* Single Electric Blue accent */
+    --accent: hsl(212, 100%, 50%);
+    /* Single Electric Blue accent */
     --accent-dim: hsla(212, 100%, 50%, 0.1);
     --text: hsl(0, 0%, 93%);
     --text-muted: hsl(0, 0%, 56%);
@@ -80,7 +82,8 @@ body {
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* command-style icon at right */
+    justify-content: space-between;
+    /* command-style icon at right */
     transition: background 0.15s, border-color 0.15s;
 }
 
@@ -100,13 +103,15 @@ body {
 }
 
 .cmd-shortcut {
-    font-size: 9px;
-    font-weight: 700;
-    opacity: 0.4;
+    font-size: 12px;
+    font-weight: 800;
+    opacity: 1;
+    font-family: monospace;
     letter-spacing: 0.05em;
     padding: 2px 4px;
     border: 1px solid var(--border);
     border-radius: 3px;
+    color: orange;
 }
 
 /* High-Density List */

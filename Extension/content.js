@@ -64,3 +64,23 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     sendResponse({ status: "active", version: "2.4" });
   }
 });
+
+// Listener for Shift + P shortcut
+window.addEventListener("keydown", (e) => {
+    // Only trigger if Shift + P is pressed and not in an input field
+    if (e.shiftKey && e.key === "P") {
+        const activeElement = document.activeElement;
+        const isInput = activeElement && (
+            activeElement.tagName === "INPUT" || 
+            activeElement.tagName === "TEXTAREA" || 
+            activeElement.isContentEditable
+        );
+
+        if (!isInput) {
+            const pin = Pinit.Fingerprint.capturePage();
+            chrome.runtime.sendMessage({ action: "savePin", pin: pin }, (response) => {
+                Pinit.UIInjector.showToast("Page Pinned!");
+            });
+        }
+    }
+});

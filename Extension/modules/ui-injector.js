@@ -74,6 +74,10 @@ Pinit.UIInjector = (() => {
   }
 
   function showToast(message, type = "success") {
+    // Remove existing toasts to prevent stacking
+    const existingToasts = document.querySelectorAll(".pinit-toast");
+    existingToasts.forEach(t => t.remove());
+
     const toast = document.createElement("div");
     toast.className = `pinit-toast pinit-toast-${type}`;
     
