@@ -9,7 +9,7 @@ Pinit.MessageDetector = (() => {
   const configs = {
     chatgpt: {
       name: "ChatGPT",
-      urlMatch: "chat.openai.com", // OpenAI still uses this
+      urlMatch: "chat.openai.com", 
       urlMatch2: "chatgpt.com",
       messageSelector: "article, [data-testid*='conversation-turn']",
       contentSelector: ".markdown, div.flex-col.gap-1",
@@ -20,6 +20,24 @@ Pinit.MessageDetector = (() => {
       urlMatch: "claude.ai",
       messageSelector: "div.font-claude-message, div[class*='ChatMessage']",
       contentSelector: ".grid-cols-1, div[class*='Message'] > div",
+      roleSelector: null,
+    },
+    perplexity: {
+      name: "Perplexity",
+      urlMatch: "perplexity.ai",
+      messageSelector: [
+        "div.group",
+        "div[class*='group/thread-item']",
+        "div[data-testid='thread-item']",
+        "article",
+        "div.w-full.border-b"
+      ].join(", "),
+      contentSelector: [
+        ".prose",
+        "div.font-sans.break-words",
+        "[data-testid='message-content']",
+        "div.max-w-full"
+      ].join(", "),
       roleSelector: null,
     },
     grok: {
@@ -33,10 +51,10 @@ Pinit.MessageDetector = (() => {
         "div[data-testid*='message']",
         "article",
         "[role='article']",
-        "div.flex-col.items-center > div.w-full", // Based on user log structure
-        "div[class*='px-gutter'] > div.relative", // Very likely message containers
+        "div.flex-col.items-center > div.w-full",
+        "div[class*='px-gutter'] > div.relative",
         ".message-row",
-        "div.relative.group" // Common for bubbles with hover actions
+        "div.relative.group"
       ].join(", "),
       contentSelector: [
         "div[id^='message-id'] > div",
@@ -59,9 +77,13 @@ Pinit.MessageDetector = (() => {
 
   function getActiveConfig() {
     const hostname = window.location.hostname;
-    // Special case for Grok redirecting or on subdomains
+    
+    // Explicit checks for common platforms
     if (hostname.includes("grok.com") || hostname.includes("x.ai")) {
         return { ...configs.grok, id: "grok" };
+    }
+    if (hostname.includes("perplexity.ai")) {
+        return { ...configs.perplexity, id: "perplexity" };
     }
 
     for (const key in configs) {
