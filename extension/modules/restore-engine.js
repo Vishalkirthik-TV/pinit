@@ -10,6 +10,16 @@ Pinit.RestoreEngine = (() => {
   async function restore(pin) {
     console.log("Pinit: Restoring pin...", pin.textPreview);
 
+    if (pin.isPagePin) {
+      const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+      window.scrollTo({
+        top: pin.position.scrollPercent * scrollHeight,
+        behavior: "smooth"
+      });
+      Pinit.UIInjector.showToast("Restored page position!");
+      return true;
+    }
+
     // 1. Immediate scan
     const visibleMessages = Pinit.MessageDetector.getAllVisibleMessages();
     const immediateMatch = Pinit.MatchingEngine.findBestMatch(pin, visibleMessages);

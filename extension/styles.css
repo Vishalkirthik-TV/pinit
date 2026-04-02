@@ -1,71 +1,92 @@
 /**
  * styles.css
- * Styles for Pinit overlays, highlights, and notifications.
+ * High-precision minimalist in-page UI for Pinit.
+ * Raycast/Linear aesthetic: minimal, functional, high-density.
  */
 
-/* Delegate Pin Button */
+:root {
+    --pinit-bg: hsl(240, 10%, 4%);
+    --pinit-border: hsla(0, 0%, 100%, 0.12);
+    --pinit-accent: hsl(212, 100%, 50%);
+    --pinit-text: hsl(0, 0%, 93%);
+    --pinit-muted: hsl(0, 0%, 56%);
+}
+
+/* Minimalist Delegate Pin Button */
 .pinit-delegate-btn {
     appearance: none;
-    background-color: #34495e; 
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Brighter border for visibility */
-    border-radius: 8px;
-    padding: 4px;
+    background-color: var(--pinit-bg) !important;
+    border: 1px solid var(--pinit-border) !important;
+    border-radius: 6px !important;
+    padding: 0 !important;
     cursor: pointer;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.4); /* Stronger shadow */
-    transition: transform 0.2s, background-color 0.2s;
-    opacity: 0.9; /* More opaque */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+    transition: all 0.1s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(4px);
+    animation: pinit-fade-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pinit-fade-in {
+    to {
+        opacity: 0.9;
+        transform: translateY(0);
+    }
 }
 
 .pinit-delegate-btn:hover {
-    transform: scale(1.15);
-    background-color: #2c3e50;
-    opacity: 1;
+    opacity: 1 !important;
+    border-color: hsla(0, 0%, 100%, 0.24) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+    background-color: hsl(240, 6%, 10%) !important;
 }
 
-/* Highlight Pulse Animation */
-@keyframes pinit-pulse {
-    0% { outline: 4px solid rgba(52, 152, 219, 0); outline-offset: 0px; box-shadow: 0 0 0 rgba(52, 152, 219, 0); }
-    50% { outline: 4px solid rgba(52, 152, 219, 0.8); outline-offset: 8px; box-shadow: 0 0 40px rgba(52, 152, 219, 0.5); }
-    100% { outline: 4px solid rgba(52, 152, 219, 0); outline-offset: 16px; box-shadow: 0 0 0 rgba(52, 152, 219, 0); }
+/* Precision Highlight */
+@keyframes pinit-focus {
+    0% { outline: 1px solid hsla(212, 100%, 50%, 0); outline-offset: 0px; }
+    100% { outline: 1px solid hsla(212, 100%, 50%, 0.6); outline-offset: 4px; }
 }
 
 .pinit-highlight-pulse {
-    animation: pinit-pulse 1.2s ease-in-out 3;
-    background-color: rgba(52, 152, 219, 0.1) !important;
+    animation: pinit-focus 1s ease-out infinite alternate !important;
+    background-color: hsla(212, 100%, 50%, 0.04) !important;
+    border-radius: 4px;
 }
 
-/* Toast Notifications */
+/* Minimalist "Command Toast" */
 .pinit-toast {
     position: fixed;
     bottom: -60px;
-    left: 20px;
-    padding: 12px 24px;
-    border-radius: 12px;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    font-weight: 600;
-    color: white;
-    z-index: 999999;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 16px;
+    border-radius: 6px;
+    background: var(--pinit-bg);
+    border: 1px solid var(--pinit-border);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--pinit-text);
+    z-index: 2147483647;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 }
 
 .pinit-toast-icon {
-    width: 24px; /* Increased toast icon size */
-    height: 24px;
-    object-fit: contain;
+    width: 14px;
+    height: 14px;
 }
 
 .pinit-toast-success {
-    background: linear-gradient(135deg, #2ecc71, #27ae60);
-}
-
-.pinit-toast-error {
-    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    border-bottom: 2px solid var(--pinit-accent);
 }
 
 .pinit-toast-show {
-    bottom: 24px;
+    bottom: 40px;
 }

@@ -1,20 +1,34 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="popup.css">
 </head>
+
 <body>
     <div class="pinit-header">
         <img src="pinit-icon-clear.png" alt="Pinit" class="pinit-brand-icon">
         <h1>Pinit</h1>
     </div>
 
+    <div class="action-bar">
+        <button id="btnPinPage" class="pinit-btn-primary" title="Shortcut: Shift + P">
+            <span><span class="btn-icon-pin">📍</span> Pin Current View</span>
+            <span class="cmd-shortcut">Shift ⇧ + P</span>
+        </button>
+    </div>
+
     <div id="pinList" class="pinit-container">
         <!-- Pins will be injected here -->
         <div class="pinit-empty">
             <p>No messages pinned yet.</p>
-            <p style="font-size: 11px; margin-top: 8px;">Hover over a message in ChatGPT, Claude, or Grok and click the button.</p>
+            <p style="font-size: 11px; margin-top: 8px;">Hover over a message in ChatGPT, Claude, or Grok and click the
+                button.</p>
         </div>
     </div>
 
@@ -24,4 +38,5 @@
 
     <script src="popup.js"></script>
 </body>
+
 </html>

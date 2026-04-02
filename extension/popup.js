@@ -5,6 +5,7 @@
 
 document.addEventListener("DOMContentLoaded", async () => {
     const pinList = document.getElementById("pinList");
+    const btnPinPage = document.getElementById("btnPinPage");
     
     // Get current tab to know the domain
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -19,6 +20,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Initial load
     refreshPins();
+
+    if (btnPinPage && tab) {
+        btnPinPage.addEventListener("click", () => {
+            chrome.tabs.sendMessage(tab.id, { action: "capturePage" }, (response) => {
+                window.close();
+            });
+        });
+    }
 
     function refreshPins() {
         // Load pins from background storage for THIS hostname
@@ -35,35 +44,55 @@ document.addEventListener("DOMContentLoaded", async () => {
         pinList.innerHTML = "";
         
         pins.forEach(pin => {
-            const card = document.createElement("div");
-            card.className = "pin-card";
+            const item = document.createElement("div");
+            item.className = "pin-list-item";
             
-            card.innerHTML = `
+            const timeStr = new Date(pin.position.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            const platformLabel = (pin.platform || "CHAT").toUpperCase();
+
+            item.innerHTML = `
                 <div class="pin-text">${escapeHtml(pin.textPreview)}</div>
                 <div class="pin-meta">
-                    <span class="pin-time">${new Date(pin.position.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
-                    <div class="pin-actions">
-                        <button class="btn-icon btn-delete" data-id="${pin.id}">✖</button>
-                    </div>
+                    <span class="status-tag status-tag-accent">${platformLabel}</span>
+                    <span class="pin-time">${timeStr}</span>
+                </div>
+                <div class="pin-actions">
+                    <button class="btn-delete" data-id="${pin.id}" title="Remove Pin">✖</button>
                 </div>
             `;
 
-            card.addEventListener("click", (e) => {
+            item.addEventListener("click", (e) => {
                 if (e.target.classList.contains("btn-delete")) {
                     removePin(pin.id);
                     e.stopPropagation();
                     return;
                 }
-                
-                // Trigger restore in the content script
-                chrome.tabs.sendMessage(tabId, { action: "restorePin", pin: pin }, (response) => {
-                    if (response && response.success) {
-                        window.close(); // Close popup on success
+                const currentUrlWithoutHash = tab.url ? tab.url.split('#')[0] : "";
+                const pinUrlWithoutHash = pin.url ? pin.url.split('#')[0] : "";
+
+                if (pin.isPagePin || (pin.url && currentUrlWithoutHash !== pinUrlWithoutHash)) {
+                    if (currentUrlWithoutHash === pinUrlWithoutHash) {
+                       chrome.tabs.sendMessage(tabId, { action: "restorePin", pin: pin }, (response) => {
+                           if (response && response.success) window.close();
+                       });
+                    } else {
+                       chrome.storage.local.set({ pendingRestore: pin }, () => {
+                           chrome.tabs.update(tabId, { url: pin.url }, () => {
+                               window.close();
+                           });
+                       });
                     }
-                });
+                } else {
+                    // Normal message pin on same page
+                    chrome.tabs.sendMessage(tabId, { action: "restorePin", pin: pin }, (response) => {
+                        if (response && response.success) {
+                            window.close(); 
+                        }
+                    });
+                }
             });
 
-            pinList.appendChild(card);
+            pinList.appendChild(item);
         });
     }
 
@@ -76,8 +105,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     function renderEmptyState() {
         pinList.innerHTML = `
             <div class="pinit-empty">
-                <p>No messages pinned yet on <b>${hostname}</b>.</p>
-                <p style="font-size: 11px; margin-top: 8px;">Hover over a message in ChatGPT, Claude, or Grok and click the 📌 button.</p>
+                <p>No active pins on this source.</p>
+                <p style="opacity: 0.4; font-size: 11px;">Search or hover messages to capture clinical context.</p>
             </div>
         `;
     }

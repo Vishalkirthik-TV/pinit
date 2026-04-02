@@ -62,7 +62,32 @@ Pinit.Fingerprint = (() => {
     return hash;
   }
 
+  function capturePage() {
+    const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+    const scrollPercent = window.scrollY / scrollHeight;
+    const url = window.location.href;
+    const title = document.title || "Pinned Page";
+
+    return {
+      id: crypto.randomUUID(),
+      url: url,
+      platform: "generic",
+      isPagePin: true,
+      text: title,
+      textPreview: title + " (" + window.location.pathname + ")",
+      textHash: hashString(title),
+      contextBefore: "",
+      contextAfter: "",
+      structure: { tag: "body", classList: [], role: "" },
+      position: {
+        scrollPercent: scrollPercent,
+        timestamp: Date.now()
+      }
+    };
+  }
+
   return {
-    capture
+    capture,
+    capturePage
   };
 })();

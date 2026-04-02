@@ -25,20 +25,45 @@ Pinit.MessageDetector = (() => {
     grok: {
       name: "Grok",
       urlMatch: "grok.com",
-      messageSelector: "div[data-testid='messageEntry'], article",
-      contentSelector: "div[id^='message-id'] > div, .css-175oi2r",
+      urlMatch2: "x.ai",
+      messageSelector: [
+        "div[data-testid='messageEntry']",
+        "div[data-testid='cellInnerDiv']",
+        "div[data-testid='conversation-turn']",
+        "div[data-testid*='message']",
+        "article",
+        "[role='article']",
+        "div.flex-col.items-center > div.w-full", // Based on user log structure
+        "div[class*='px-gutter'] > div.relative", // Very likely message containers
+        ".message-row",
+        "div.relative.group" // Common for bubbles with hover actions
+      ].join(", "),
+      contentSelector: [
+        "div[id^='message-id'] > div",
+        "[data-testid='tweetText']",
+        "div[class*='css-175oi2r'] > div",
+        ".markdown",
+        "div[dir='auto']",
+        ".text-base", 
+        "div.flex-col > div.relative"
+      ].join(", "),
       roleSelector: null,
     },
     generic: {
       name: "Generic",
-      messageSelector: "article, div[class*='message'], div[data-message]",
-      contentSelector: "div",
+      messageSelector: "article, [role='article'], div[class*='message'], div[data-message], [data-testid*='turn'], [data-testid*='message']",
+      contentSelector: ".markdown, .message-content, div",
       roleSelector: null,
     }
   };
 
   function getActiveConfig() {
     const hostname = window.location.hostname;
+    // Special case for Grok redirecting or on subdomains
+    if (hostname.includes("grok.com") || hostname.includes("x.ai")) {
+        return { ...configs.grok, id: "grok" };
+    }
+
     for (const key in configs) {
       if (configs[key].urlMatch && hostname.includes(configs[key].urlMatch)) {
         return { ...configs[key], id: key };

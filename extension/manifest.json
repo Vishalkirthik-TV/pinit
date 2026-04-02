@@ -5,11 +5,7 @@
   "description": "Intelligently pin and return to AI chat messages, even in virtualized lists.",
   "permissions": ["storage", "activeTab", "scripting"],
   "host_permissions": [
-    "https://chatgpt.com/*",
-    "https://chat.openai.com/*",
-    "https://claude.ai/*",
-    "https://grok.com/*",
-    "https://x.com/i/grok/*"
+    "<all_urls>"
   ],
   "action": {
     "default_popup": "popup.html",
@@ -21,11 +17,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://chatgpt.com/*",
-        "https://chat.openai.com/*",
-        "https://claude.ai/*",
-        "https://grok.com/*",
-        "https://x.com/i/grok/*"
+        "<all_urls>"
       ],
       "js": [
         "modules/message-detector.js",
@@ -49,5 +41,14 @@
       "resources": ["pinit-icon-clear.png"],
       "matches": ["<all_urls>"]
     }
-  ]
+  ],
+  "commands": {
+    "capture-page": {
+      "suggested_key": {
+        "default": "Alt+Shift+P",
+        "mac": "Alt+Shift+P"
+      },
+      "description": "Pin the current page view"
+    }
+  }
 }
