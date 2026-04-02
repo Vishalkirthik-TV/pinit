@@ -3,13 +3,14 @@
  * Main entry point for the Pinit content script.
  */
 
-console.log("Pinit: Extension active. Version 2.1");
+console.log("Pinit: Extension active. Version 2.4");
 
 try {
     // Initialize UI
     if (Pinit && Pinit.UIInjector) {
         Pinit.UIInjector.init();
-        console.log("Pinit: UI System initialized.");
+        const config = Pinit.MessageDetector.getActiveConfig();
+        console.log(`Pinit: UI System initialized on ${config.name} (${window.location.hostname})`);
     } else {
         console.error("Pinit: UI System modules not found during init.");
     }
@@ -60,6 +61,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   
   if (request.action === "ping") {
     Pinit.UIInjector.showToast("Pinit is ready!");
-    sendResponse({ status: "active", version: "2.1" });
+    sendResponse({ status: "active", version: "2.4" });
   }
 });

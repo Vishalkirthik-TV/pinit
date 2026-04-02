@@ -9,16 +9,16 @@ Pinit.UIInjector = (() => {
   let activePinButton = null;
 
   function init() {
-    console.log("Pinit: Initializing UIInjector...");
-    document.addEventListener("mouseover", handleMouseOver);
+    console.log("Pinit: Initializing UIInjector (using capture-phase for robust events)...");
+    document.addEventListener("mouseover", handleMouseOver, true);
   }
-
   function handleMouseOver(e) {
     const config = Pinit.MessageDetector.getActiveConfig();
     const messageEl = e.target.closest(config.messageSelector);
 
     if (messageEl) {
       if (activePinButton && activePinButton.parentElement === messageEl) return;
+      console.log(`Pinit: Found message element on ${config.name}`, messageEl);
       showPinButton(messageEl);
     }
   }
